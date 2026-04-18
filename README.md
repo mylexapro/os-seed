@@ -8,19 +8,23 @@ how computers actually work at the lowest level.
 
 ## 🚀 Current Status
 
-**Version:** v0.2.1 — "Print Loop"
+**Version:** v0.3.0 — "Direct VGA Write"
 
 The OS currently:
 
 - Boots from a custom 512-byte boot sector written in x86 assembly
 - Runs in 16-bit real mode (how every x86 CPU starts up)
-- Uses a print loop to print a full string to the screen
-- Loops through each character using lodsb and BIOS interrupt int 0x10
+- Clears the screen by writing directly to VGA memory at 0xB8000
+- Prints a full string directly to VGA memory in hot pink
+- No BIOS interrupts used for printing — talks directly to hardware
 - Halts the CPU cleanly after printing
 
 Fully reproducible with:
+
+```
 nasm -f bin boot.asm -o boot.bin
 qemu-system-i386 -drive format=raw,file=boot.bin
+```
 
 ---
 
@@ -45,6 +49,7 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ### ✔️ Completed
 
+- Switch from BIOS interrupts to direct VGA memory writes at 0xB8000
 - Write a Print Loop (prints entire string instead of one letter at a time)
 - Boot sector that loads and runs
 - BIOS interrupt-based character output
@@ -53,7 +58,6 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ### 🔜 Next Steps
 
-- Switch from BIOS interrupts to direct VGA memory writes at 0xB8000
 - Enter 32-bit protected mode
 - Set up a Global Descriptor Table (GDT)
 - Load and call a C kernel (kmain)
@@ -70,20 +74,30 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ## 📝 Versioning
 
-- v0.1.x — previous experiments (scrapped, clean slate taken)
-- v0.2.0 — minimal boot sector, prints to screen, clean repo
-- v0.2.1 — print loop, prints full string using lodsb and jumps
+- v0.1.x — old experiments (scrapped, clean slate taken)
+- v0.2.0 — minimal boot sector, prints "Hi" using BIOS interrupt
+- v0.2.1 — print loop, prints full string using BIOS interrupt
+- v0.3.0 — direct VGA write, no BIOS, hot pink text, screen clear
 
 ---
 
 ## 📸 Screenshots
 
-### v0.2.1 — Print loop working
-![Boot print loop](screenshots/v0.2.1-boot-print-loop.png)
+### v0.3.0 — Direct VGA write, full string, hot pink
+![VGA direct write](screenshots/v0.3.0-vga-direct-write.png)
 
-### v0.1.x — Previous experiments (scrapped)
-![Minimal Kernel](screenshots/minimalkernelss.png)
-![Clear Screen](screenshots/clearscreenss.png)
+### v0.2.3 — Direct VGA write, clear screen, single char
+![VGA clear screen](screenshots/v0.2.3-vga-clear-screen.png)
+
+### v0.2.2 — Direct VGA write, single char, no clear
+![VGA single char](screenshots/v0.2.2-vga-single-char.png)
+
+### v0.2.1 — BIOS print loop, full string
+![BIOS print loop](screenshots/v0.2.1-boot-print-loop.png)
+
+### v0.1.x — Old experiments (pre clean slate)
+![Old protected mode print](screenshots/v0.1.0-old-protected-mode-print.png)
+![Old protected mode clear](screenshots/v0.1.1-old-protected-mode-clear.png)
 
 ---
 

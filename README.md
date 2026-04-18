@@ -45,18 +45,6 @@ os-image.bin  → final bootable image
 
 ---
 
-## 🛠️ Build & Run
-### Build:
-make
-
-### Run in QEMU:
-make run
-
-### Clean:
-make clean
-
----
-
 ## 🧭 Roadmap
 ### ✔️ Completed
 - Minimal boot sector

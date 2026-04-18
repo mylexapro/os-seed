@@ -103,6 +103,7 @@ Current tags:
 ## 📸 Screenshots
 
 ![Minimal Kernel Screenshot](screenshots/minimalkernelss.png)
+![Clear Screen Screenshot](screenshots/clearscreenss.png)
 
 ---
 

@@ -4,16 +4,21 @@ A tiny 32‑bit operating system seed built from scratch — bootloader, protect
 ---
 
 ## 🚀 Current Status
-**Version:** v0.0.1 — “Protected Mode Online”
+**Version:** v0.1.0 — “Single‑Stage Protected Mode Bootloader”
 
 The OS currently:
 - Boots from a custom 512‑byte boot sector
 - Sets up a Global Descriptor Table (GDT)
 - Switches the CPU into 32‑bit protected mode
-- Jumps into a freestanding C kernel
-- Writes directly to VGA text memory
+- **Clears the VGA text buffer (new in v0.1.0)**
+- Writes `"Hello from protected mode!"` directly to video memory
+- Runs entirely as a **single‑stage bootloader** (no external loader or C kernel yet)
 
-This is the minimal foundation every real OS starts from.
+This version is fully reproducible using:
+nasm -f bin boot.asm -o boot.bin
+qemu-system-i386 -drive format=raw,file=boot.bin
+
+This is the stable baseline for future multi‑stage kernel development.
 
 ---
 
@@ -56,12 +61,12 @@ make clean
 - GDT setup
 - Protected mode switch
 - VGA text output
-- Freestanding C kernel
+- **VGA screen clear (new in v0.1.0)**
 - GitHub versioning
 
 ### 🔜 Next Steps
-- Clear screen in protected mode
-- Split kernel into separate stage
+- Introduce a minimal C kernel (`kmain`)
+- Link assembly + C into a single bootable binary
 - Implement disk sector loading
 - Add a basic printf
 - Keyboard driver
@@ -84,14 +89,14 @@ make clean
 ## 📝 Versioning
 This project uses semantic versioning, adapted for OS‑dev:
 
-- v0.0.x → early bootloader + kernel experiments
-- v0.1.x → disk loading + multi‑stage kernel
-- v0.2.x → interrupts, drivers, memory management
-- v0.3.x → basic shell + userland experiments
+- v0.0.x → early bootloader + kernel experiments  
+- v0.1.x → single‑stage bootloader improvements + transition to multi‑stage loader  
+- v0.2.x → interrupts, drivers, memory management  
+- v0.3.x → basic shell + userland experiments  
 
-Tagging example:
-git tag v0.0.1
-git push --tags
+Current tags:
+- `v0.0.1` — first protected‑mode boot  
+- `v0.1.0` — stable single‑stage bootloader with VGA clear  
 
 ---
 
@@ -101,7 +106,6 @@ git push --tags
 
 ---
 
-## 💬 About This Project
 ## 💬 About This Project
 os-seed is a long‑term learning project focused on mastering low‑level systems engineering. I’m building this kernel from scratch to deepen my understanding of CPU architecture, memory models, bootloaders, and OS fundamentals.
 

@@ -96,7 +96,8 @@ git push --tags
 ---
 
 ## 📸 Screenshots
-(Add QEMU screenshots here as you go)
+
+![Minimal Kernel Screenshot](screenshots/minimalkernelss.png)
 
 ---
 

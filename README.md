@@ -102,4 +102,7 @@ git push --tags
 ---
 
 ## 💬 About This Project
-This OS is not meant to compete with Linux or Windows. It’s a learning project — a place to explore how computers actually work at the lowest level. Every commit represents real progress in my systems engineering journey.
+## 💬 About This Project
+os-seed is a long‑term learning project focused on mastering low‑level systems engineering. I’m building this kernel from scratch to deepen my understanding of CPU architecture, memory models, bootloaders, and OS fundamentals.
+
+This repository will continue to evolve as I add new features, explore deeper concepts, and document my progress as a systems engineer.

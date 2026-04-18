@@ -8,13 +8,14 @@ how computers actually work at the lowest level.
 
 ## 🚀 Current Status
 
-**Version:** v0.2.0 — "Minimal Boot Sector"
+**Version:** v0.2.1 — "Print Loop"
 
 The OS currently:
 
 - Boots from a custom 512-byte boot sector written in x86 assembly
 - Runs in 16-bit real mode (how every x86 CPU starts up)
-- Uses a BIOS interrupt (int 0x10) to print characters to the screen
+- Uses a print loop to print a full string to the screen
+- Loops through each character using lodsb and BIOS interrupt int 0x10
 - Halts the CPU cleanly after printing
 
 Fully reproducible with:
@@ -44,6 +45,7 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ### ✔️ Completed
 
+- Write a Print Loop (prints entire string instead of one letter at a time)
 - Boot sector that loads and runs
 - BIOS interrupt-based character output
 - Clean CPU halt
@@ -51,7 +53,6 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ### 🔜 Next Steps
 
-- Write a print loop (print a whole string, not one character at a time)
 - Switch from BIOS interrupts to direct VGA memory writes at 0xB8000
 - Enter 32-bit protected mode
 - Set up a Global Descriptor Table (GDT)
@@ -71,6 +72,18 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 - v0.1.x — previous experiments (scrapped, clean slate taken)
 - v0.2.0 — minimal boot sector, prints to screen, clean repo
+- v0.2.1 — print loop, prints full string using lodsb and jumps
+
+---
+
+## 📸 Screenshots
+
+### v0.2.1 — Print loop working
+![Boot print loop](screenshots/v0.2.0-boot-print-loop.png)
+
+### v0.1.x — Previous experiments (scrapped)
+![Minimal Kernel](screenshots/minimalkernelss.png)
+![Clear Screen](screenshots/clearscreenss.png)
 
 ---
 

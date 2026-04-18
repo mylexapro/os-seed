@@ -77,7 +77,15 @@ pm_start:
 
     mov esp, 0x90000
 
-    ; write "Hello from protected mode!" directly to VGA text memory
+    ;clear VGA text mode screen
+    mov edi, 0xB8000       ; start of VGA text buffer
+    mov ecx, 80*25         ; number of character cells
+    mov ax, 0x0F20         ; ' ' with white-on-black
+.clear_loop:
+    stosw                   ; write AX to [EDI], advance EDI by 2
+    loop .clear_loop
+
+    ; write "Hello from the Kernel!" directly to VGA text memory
     mov edi, 0xB8000
     mov esi, msg_pm
     mov ah, 0x0F          ; white on black

@@ -79,7 +79,7 @@ boot.asm      → 512-byte boot sector, the only file right now
 ## 📸 Screenshots
 
 ### v0.2.1 — Print loop working
-![Boot print loop](screenshots/v0.2.0-boot-print-loop.png)
+![Boot print loop](screenshots/v0.2.1-boot-print-loop.png)
 
 ### v0.1.x — Previous experiments (scrapped)
 ![Minimal Kernel](screenshots/minimalkernelss.png)

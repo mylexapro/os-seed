@@ -8,15 +8,16 @@ how computers actually work at the lowest level.
 
 ## 🚀 Current Status
 
-**Version:** v0.3.0 — "Direct VGA Write"
+**Version:** v0.4.0 — "Protected Mode"
 
 The OS currently:
 
 - Boots from a custom 512-byte boot sector written in x86 assembly
-- Runs in 16-bit real mode (how every x86 CPU starts up)
+- Sets up a Global Descriptor Table (GDT)
+- Switches the CPU from 16-bit real mode into 32-bit protected mode
 - Clears the screen by writing directly to VGA memory at 0xB8000
-- Prints a full string directly to VGA memory in hot pink
-- No BIOS interrupts used for printing — talks directly to hardware
+- Prints "Hello from protected mode!" in hot pink directly to VGA memory
+- No BIOS interrupts used at all — pure direct hardware access
 - Halts the CPU cleanly after printing
 
 Fully reproducible with:
@@ -49,6 +50,8 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ### ✔️ Completed
 
+- Enter 32-bit Protected Mode
+- Set up a Global Descriptor Table (GDT)
 - Switch from BIOS interrupts to direct VGA memory writes at 0xB8000
 - Write a Print Loop (prints entire string instead of one letter at a time)
 - Boot sector that loads and runs
@@ -58,8 +61,6 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ### 🔜 Next Steps
 
-- Enter 32-bit protected mode
-- Set up a Global Descriptor Table (GDT)
 - Load and call a C kernel (kmain)
 - Build a Makefile
 
@@ -78,10 +79,14 @@ boot.asm      → 512-byte boot sector, the only file right now
 - v0.2.0 — minimal boot sector, prints "Hi" using BIOS interrupt
 - v0.2.1 — print loop, prints full string using BIOS interrupt
 - v0.3.0 — direct VGA write, no BIOS, hot pink text, screen clear
+- v0.4.0 — protected mode, GDT, 32-bit, full string in hot pink
 
 ---
 
 ## 📸 Screenshots
+
+### v0.4.0 — Protected mode, full string, hot pink
+![Protected mode](screenshots/v0.4.0-protected-mode-full-string.png)
 
 ### v0.3.0 — Direct VGA write, full string, hot pink
 ![VGA direct write](screenshots/v0.3.0-vga-direct-write.png)

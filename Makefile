@@ -10,11 +10,12 @@ all: os-image.bin
 boot.bin: boot.asm
 	$(AS) -f bin boot.asm -o boot.bin
 
-kernel.o: kernel.c
+kernel.o: kernel.c vga.c vga.h
 	$(CC) $(CFLAGS) -c kernel.c -o kernel.o
+	$(CC) $(CFLAGS) -c vga.c -o vga.o
 
 kernel.elf: kernel.o
-	$(LD) -m  elf_i386 -Ttext 0x8000 -o kernel.elf kernel.o
+	$(LD) -m  elf_i386 -Ttext 0x8000 -o kernel.elf kernel.o vga.o
 
 kernel.bin: kernel.elf
 	$(OBJCOPY) -O binary kernel.elf kernel.bin

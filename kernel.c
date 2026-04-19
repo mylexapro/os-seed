@@ -1,14 +1,11 @@
-#include <stdint.h>
-
-#define VGA ((uint16_t*)0xB8000)
-#define WIDTH 80
+#include "vga.h"
 
 void kmain(void) {
-	const char *msg = "Hello from kmain!";
-	int i = 0;
-	while (msg[i]) {
-		VGA[i] = (uint16_t)msg[i] | (0x0D << 8);
-		i++;
+	vga_clear();
+	vga_print("Hello from kmain!\n", VGA_COLOR_PINK);
+	vga_print("VGA driver working!", VGA_COLOR_PINK);
+
+	for (;;) {
+		__asm__ __volatile__("hlt");
 	}
-	for (;;) {}
 }

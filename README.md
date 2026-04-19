@@ -6,9 +6,7 @@ how computers actually work at the lowest level.
 
 ---
 
-## 🚀 Current Status
-
-**Version:** v1.0.0 — "C Kernel Boots"
+**Version:** v1.1.0 — "VGA Text Driver"
 
 The OS currently:
 
@@ -17,14 +15,9 @@ The OS currently:
 - Sets up a Global Descriptor Table (GDT)
 - Switches the CPU from 16-bit real mode into 32-bit protected mode
 - Jumps to a C kernel at 0x8000
-- kmain() prints "Hello from kmain!" in hot pink directly to VGA memory
+- VGA text driver with cursor tracking and newline support
+- kmain() uses the driver to print multiple lines in hot pink
 - Built with a Makefile — single `make run` command to build and launch
-
-Fully reproducible with:
-
-```
-make run
-```
 
 ---
 
@@ -44,6 +37,8 @@ make run
 ```
 boot.asm     → 512-byte bootloader, loads kernel, switches to protected mode
 kernel.c     → C kernel, kmain() entry point
+vga.h        → VGA driver header, function declarations
+vga.c        → VGA driver implementation, cursor tracking
 linker.ld    → tells linker where to place code in memory
 Makefile     → builds and runs everything with a single command
 ```
@@ -53,16 +48,8 @@ Makefile     → builds and runs everything with a single command
 
 ### ✔️ Completed
 
+- Add a proper VGA text driver with cursor support
 - Load and Call a C kernel (kmain)
-- Build a Makefile
-- Enter 32-bit Protected Mode
-- Set up a Global Descriptor Table (GDT)
-- Switch from BIOS interrupts to direct VGA memory writes at 0xB8000
-- Write a Print Loop (prints entire string instead of one letter at a time)
-- Boot sector that loads and runs
-- BIOS interrupt-based character output
-- Clean CPU halt
-- Git versioning from the start
 
 ### 🔜 Next Steps
 
@@ -92,13 +79,14 @@ Makefile     → builds and runs everything with a single command
 - v0.3.0 — direct VGA write, no BIOS, hot pink text, screen clear
 - v0.4.0 — protected mode, GDT, 32-bit, full string in hot pink
 - v1.0.0 — C kernel boots, kmain() called from bootloader
+- v1.1.0 — VGA text driver, multiple files, cursor tracking, newlines
 
 ---
 
 ## 📸 Screenshots
 
-### v1.0.0 — C kernel boots, kmain() running
-![kmain boots](screenshots/v1.0.0-kmain-boots.png)
+### v1.1.0 — VGA text driver, cursor tracking, newlines
+![VGA driver](screenshots/v1.1.0-vga-driver.png)
 
 > Full screenshot history available in the [screenshots folder](screenshots/)
 

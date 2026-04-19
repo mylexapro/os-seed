@@ -2,6 +2,15 @@ BITS 16
 ORG 0x7C00
 
 start:
+	mov ax, 0x0800
+	mov es, ax
+	mov bx, 0
+	mov ah, 0x02
+	mov al, 10
+	mov ch, 0
+	mov cl, 2
+	mov dh, 0
+	int 0x13
 	cli
 	lgdt [gdt_descriptor]
 	mov eax, cr0
@@ -25,21 +34,13 @@ protected_mode:
 	add edi, 2
 	loop .clear
 
-	mov edi, 0xB8000
-	mov esi, msg
-.print:
-	lodsb
-	or al, al
-	jz .done
-	mov byte [edi], al
-	mov byte [edi+1], 0x0D
-	add edi, 2
-	jmp .print
-.done:
+	mov eax, 0x8000
+	call eax
+
+.hang:
 	cli
 	hlt
-
-msg db "Hello from protected mode!", 0
+	jmp .hang
 
 gdt_start:
 	dq 0
@@ -52,11 +53,11 @@ gdt_code:
 	db 0x00
 gdt_data:
 	dw 0xFFFF
-        dw 0x0000
-        db 0x00
-        db 10010010b
-        db 11001111b
-        db 0x00
+	dw 0x0000
+	db 0x00
+	db 10010010b
+	db 11001111b
+	db 0x00
 gdt_end:
 
 gdt_descriptor:

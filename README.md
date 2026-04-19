@@ -8,23 +8,22 @@ how computers actually work at the lowest level.
 
 ## 🚀 Current Status
 
-**Version:** v0.4.0 — "Protected Mode"
+**Version:** v1.0.0 — "C Kernel Boots"
 
 The OS currently:
 
 - Boots from a custom 512-byte boot sector written in x86 assembly
+- Uses BIOS interrupt int 0x13 to load the kernel from disk into memory
 - Sets up a Global Descriptor Table (GDT)
 - Switches the CPU from 16-bit real mode into 32-bit protected mode
-- Clears the screen by writing directly to VGA memory at 0xB8000
-- Prints "Hello from protected mode!" in hot pink directly to VGA memory
-- No BIOS interrupts used at all — pure direct hardware access
-- Halts the CPU cleanly after printing
+- Jumps to a C kernel at 0x8000
+- kmain() prints "Hello from kmain!" in hot pink directly to VGA memory
+- Built with a Makefile — single `make run` command to build and launch
 
 Fully reproducible with:
 
 ```
-nasm -f bin boot.asm -o boot.bin
-qemu-system-i386 -drive format=raw,file=boot.bin
+make run
 ```
 
 ---
@@ -42,14 +41,20 @@ qemu-system-i386 -drive format=raw,file=boot.bin
 ---
 
 ## 🗂️ Project Structure
-boot.asm      → 512-byte boot sector, the only file right now
-
+```
+boot.asm     → 512-byte bootloader, loads kernel, switches to protected mode
+kernel.c     → C kernel, kmain() entry point
+linker.ld    → tells linker where to place code in memory
+Makefile     → builds and runs everything with a single command
+```
 ---
 
 ## 🧭 Roadmap
 
 ### ✔️ Completed
 
+- Load and Call a C kernel (kmain)
+- Build a Makefile
 - Enter 32-bit Protected Mode
 - Set up a Global Descriptor Table (GDT)
 - Switch from BIOS interrupts to direct VGA memory writes at 0xB8000
@@ -61,15 +66,21 @@ boot.asm      → 512-byte boot sector, the only file right now
 
 ### 🔜 Next Steps
 
-- Load and call a C kernel (kmain)
-- Build a Makefile
+- Add a proper VGA text driver with cursor support
+- Implement a printf function for formatted output
+- Set up the Interrupt Descriptor Table (IDT)
+- Handle keyboard interrupts
+- Remap the Programmable Interrupt Controller (PIC)
+- Implement memory detection
+- Add basic memory management
+- Build a simple shell
 
 ### 📅 Later
 
-- Keyboard driver
-- Interrupt Descriptor Table (IDT)
 - Memory paging
-- Simple shell
+- Userland processes
+- Filesystem support
+- Rust kernel modules
 
 ---
 
@@ -80,10 +91,14 @@ boot.asm      → 512-byte boot sector, the only file right now
 - v0.2.1 — print loop, prints full string using BIOS interrupt
 - v0.3.0 — direct VGA write, no BIOS, hot pink text, screen clear
 - v0.4.0 — protected mode, GDT, 32-bit, full string in hot pink
+- v1.0.0 — C kernel boots, kmain() called from bootloader
 
 ---
 
 ## 📸 Screenshots
+
+### v1.0.0 — C kernel boots, kmain() running
+![kmain boots](screenshots/v1.0.0-kmain-boots.png)
 
 ### v0.4.0 — Protected mode, full string, hot pink
 ![Protected mode](screenshots/v0.4.0-protected-mode-full-string.png)

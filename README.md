@@ -6,10 +6,11 @@ how computers actually work at the lowest level.
 
 ---
 
-**Version:** v1.1.0 — "VGA Text Driver"
+**Version:** v1.2.0 — "Formatted Printing (kprintf)"
 
 The OS currently:
 
+- kprintf() for formatted output (%d, %x, %s)
 - Boots from a custom 512-byte boot sector written in x86 assembly
 - Uses BIOS interrupt int 0x13 to load the kernel from disk into memory
 - Sets up a Global Descriptor Table (GDT)
@@ -41,6 +42,8 @@ vga.h        → VGA driver header, function declarations
 vga.c        → VGA driver implementation, cursor tracking
 linker.ld    → tells linker where to place code in memory
 Makefile     → builds and runs everything with a single command
+kprintf.h    → kprintf() header, variadic function declaration
+kprintf.c    → kprintf() implementation, number-to-string conversion
 ```
 ---
 
@@ -48,13 +51,12 @@ Makefile     → builds and runs everything with a single command
 
 ### ✔️ Completed
 
+- Implement a printf function for formatted output
 - Add a proper VGA text driver with cursor support
 - Load and Call a C kernel (kmain)
 
 ### 🔜 Next Steps
 
-- Add a proper VGA text driver with cursor support
-- Implement a printf function for formatted output
 - Set up the Interrupt Descriptor Table (IDT)
 - Handle keyboard interrupts
 - Remap the Programmable Interrupt Controller (PIC)
@@ -80,13 +82,14 @@ Makefile     → builds and runs everything with a single command
 - v0.4.0 — protected mode, GDT, 32-bit, full string in hot pink
 - v1.0.0 — C kernel boots, kmain() called from bootloader
 - v1.1.0 — VGA text driver, multiple files, cursor tracking, newlines
+- v1.2.0 — kprintf() with %d, %x, %s format specifiers
 
 ---
 
 ## 📸 Screenshots
 
-### v1.1.0 — VGA text driver, cursor tracking, newlines
-![VGA driver](screenshots/v1.1.0-vga-driver.png)
+### v1.2.0 — kprintf() formatted printing
+![kprintf](screenshots/v1.2.0-kprintf.png)
 
 > Full screenshot history available in the [screenshots folder](screenshots/)
 

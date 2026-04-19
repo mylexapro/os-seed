@@ -100,24 +100,7 @@ Makefile     → builds and runs everything with a single command
 ### v1.0.0 — C kernel boots, kmain() running
 ![kmain boots](screenshots/v1.0.0-kmain-boots.png)
 
-### v0.4.0 — Protected mode, full string, hot pink
-![Protected mode](screenshots/v0.4.0-protected-mode-full-string.png)
-
-### v0.3.0 — Direct VGA write, full string, hot pink
-![VGA direct write](screenshots/v0.3.0-vga-direct-write.png)
-
-### v0.2.3 — Direct VGA write, clear screen, single char
-![VGA clear screen](screenshots/v0.2.3-vga-clear-screen.png)
-
-### v0.2.2 — Direct VGA write, single char, no clear
-![VGA single char](screenshots/v0.2.2-vga-single-char.png)
-
-### v0.2.1 — BIOS print loop, full string
-![BIOS print loop](screenshots/v0.2.1-boot-print-loop.png)
-
-### v0.1.x — Old experiments (pre clean slate)
-![Old protected mode print](screenshots/v0.1.0-old-protected-mode-print.png)
-![Old protected mode clear](screenshots/v0.1.1-old-protected-mode-clear.png)
+> Full screenshot history available in the [screenshots folder](screenshots/)
 
 ---
 

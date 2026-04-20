@@ -6,18 +6,18 @@ how computers actually work at the lowest level.
 
 ---
 
-**Version:** v1.2.0 — "Formatted Printing (kprintf)"
+**Version:** v1.3.0 — "Interrupt Descriptor Table"
 
 The OS currently:
 
-- kprintf() for formatted output (%d, %x, %s)
 - Boots from a custom 512-byte boot sector written in x86 assembly
 - Uses BIOS interrupt int 0x13 to load the kernel from disk into memory
 - Sets up a Global Descriptor Table (GDT)
 - Switches the CPU from 16-bit real mode into 32-bit protected mode
 - Jumps to a C kernel at 0x8000
 - VGA text driver with cursor tracking and newline support
-- kmain() uses the driver to print multiple lines in hot pink
+- kprintf() for formatted output (%d, %x, %s)
+- IDT loaded with interrupt handlers
 - Built with a Makefile — single `make run` command to build and launch
 
 ---
@@ -44,6 +44,9 @@ linker.ld    → tells linker where to place code in memory
 Makefile     → builds and runs everything with a single command
 kprintf.h    → kprintf() header, variadic function declaration
 kprintf.c    → kprintf() implementation, number-to-string conversion
+idt.h        → IDT structures and function declarations
+idt.c        → IDT initialization and gate setup
+isr.asm      → Interrupt service routine stubs in assembly
 ```
 ---
 
@@ -51,13 +54,13 @@ kprintf.c    → kprintf() implementation, number-to-string conversion
 
 ### ✔️ Completed
 
+- Set up the Interrupt Descriptor Table (IDT)
 - Implement a printf function for formatted output
 - Add a proper VGA text driver with cursor support
 - Load and Call a C kernel (kmain)
 
 ### 🔜 Next Steps
 
-- Set up the Interrupt Descriptor Table (IDT)
 - Handle keyboard interrupts
 - Remap the Programmable Interrupt Controller (PIC)
 - Implement memory detection
@@ -83,13 +86,14 @@ kprintf.c    → kprintf() implementation, number-to-string conversion
 - v1.0.0 — C kernel boots, kmain() called from bootloader
 - v1.1.0 — VGA text driver, multiple files, cursor tracking, newlines
 - v1.2.0 — kprintf() with %d, %x, %s format specifiers
+- v1.3.0 — IDT setup, interrupt handlers, ISR stubs in assembly
 
 ---
 
 ## 📸 Screenshots
 
-### v1.2.0 — kprintf() formatted printing
-![kprintf](screenshots/v1.2.0-kprintf.png)
+### v1.3.0 — Interrupt Descriptor Table loaded
+![IDT](screenshots/v1.3.0-idt.png)
 
 > Full screenshot history available in the [screenshots folder](screenshots/)
 
